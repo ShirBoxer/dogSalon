@@ -27,13 +27,17 @@ namespace API
         //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            // add sql server to services
             services.AddDbContext<DataContext>(options => 
             {
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
+            // TODO 
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -41,6 +45,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // order is matter 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -53,6 +58,9 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //middleware for working with other origin(the client), x = policy
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+            .WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
