@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
-    {
+{   // we get it from BaseApiController
+    // [ApiController]
+    // [Route("api/[controller]")]
+    public class UsersController : BaseApiController
+    {   //TODO
         private readonly DataContext _context;
         public UsersController(DataContext context)
         {
