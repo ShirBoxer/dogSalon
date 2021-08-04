@@ -11,3 +11,14 @@
 .loginForm {
     margin-left: 100px;
 }
+
+/* //// */
+
+.dropdown{
+    margin-left: 650px;
+}
+
+.dropdown-toggle, .dropdown-item{
+    cursor: pointer;
+}
+
