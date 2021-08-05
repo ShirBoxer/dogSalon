@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using API.Entities;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using API.Entities;
-using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,7 +14,6 @@ namespace API.Controllers
 {
     public class AppointmentController : BaseApiController
     {
-        private readonly IAppointmentRepository _appointmentRepository;
 
         private readonly DataContext _context;
 
@@ -53,6 +49,35 @@ namespace API.Controllers
              PhoneNumber = user.PhoneNumber
             };
         }
+
+
+
+        public async Task<Appointment> GetAppointmentByIdAsync(int id)
+        {
+            return await _context.Appointments.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsAsync()
+        {
+            return await _context.Appointments.ToArrayAsync();
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public void Update(Appointment appointment)
+        {
+            _context.Entry(appointment).State = EntityState.Modified;
+
+        }
+         private async Task<bool> AppointmentExists(DateTime appDate)
+        {
+            return await _context.Appointments
+            .AnyAsync(app => System.DateTime.Equals(app.AppointmentDate, appDate));
+        }
     }
+    
 
 }
