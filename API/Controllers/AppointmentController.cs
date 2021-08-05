@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class AppointmentController
+    public class AppointmentController : BaseApiController
     {
         private readonly IAppointmentRepository _appointmentRepository;
 
@@ -16,7 +16,7 @@ namespace API.Controllers
             _appointmentRepository = appointmentRepository;
         }
 
-        [HttpPost("creating-appointment")]
+        [HttpPost("create")]
         public async Task<ActionResult<AppointmentDto>> CreateAsync(AppointmentDto appointmentDto)
         {
             return await _appointmentRepository.CreateAsync(appointmentDto);

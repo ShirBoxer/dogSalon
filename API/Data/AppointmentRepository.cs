@@ -19,6 +19,7 @@ namespace API.Data
         }
 
         public  async Task<AppointmentDto> CreateAsync(AppointmentDto appointmentDto)
+
         {   //TODO - if here and if user is null line-26
             //if (await AppointmentExists(appointmentDto.AppointmentDate)) return BadRequest("Sorry the time you choose is not available, Please try again");
            
@@ -33,7 +34,8 @@ namespace API.Data
             _context.Appointments.Add(appointment);
             // save the appointment into appointment table
             await _context.SaveChangesAsync();
-
+                 
+            ///TODO change!!!!!
             CustomerDto customer = new CustomerDto{
                  Id = user.Id,
                  UserName = user.UserName,

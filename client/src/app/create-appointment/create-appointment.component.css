@@ -7,12 +7,12 @@ button.calendar, button.calendar:active {
 }
 
 .row {
-    margin-left: 200px;
+    margin-left: 200px
 
 }
 
 .form-inline{
-    margin-top: 150px;
     margin-left: 240px;
+    margin-bottom: 400px;
 
 }
