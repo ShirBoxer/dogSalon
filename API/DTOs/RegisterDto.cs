@@ -9,5 +9,8 @@ namespace API.DTOs
        
         [Required]
         public string Password { get; set; }
+
+        public int PhoneNumber { get; set;}
+
     }
 }

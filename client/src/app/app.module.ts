@@ -8,14 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main/main.component';
 import { MainCarouselComponent } from './main/main-carousel/main-carousel.component';
 import { AppointmentsListComponent } from './main/appointments-list/appointments-list.component';
-import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './_modules/shared.module';
+import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { SharedModule } from './_modules/shared.module';
     RegisterComponent,
     MainComponent,
     MainCarouselComponent,
-    AppointmentsListComponent
+    AppointmentsListComponent,
+    CreateAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,10 @@ import { SharedModule } from './_modules/shared.module';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgbModule,
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

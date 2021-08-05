@@ -13,6 +13,8 @@ namespace API.Extensions
         {
             // add JWT service. using addScoped to have life time of the http req
             services.AddScoped<ITokenService, TokenService>();
+            // add repository
+            services.AddScoped<IUserRepository,UserRepository>();
 
             // add sql server to services
             services.AddDbContext<DataContext>(options => 
