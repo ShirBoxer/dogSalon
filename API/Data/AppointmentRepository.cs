@@ -18,12 +18,12 @@ namespace API.Data
             userRepo = new UserRepository(_context);
         }
 
-        public  async Task<AppointmentDto> CreateAsync(AppointmentDto appointmentDto)
+        public  async Task<AppointmentOutputDto> CreateAsync(AppointmentInputDto appointmentDto)
 
         {   //TODO - if here and if user is null line-26
             //if (await AppointmentExists(appointmentDto.AppointmentDate)) return BadRequest("Sorry the time you choose is not available, Please try again");
            
-            AppUser user = await userRepo.GetUserByIdAsync(appointmentDto.AppUserId);
+            AppUser user = await userRepo.GetUserByNameAsync(appointmentDto.AppUserName);
             Appointment appointment = new Appointment
             {
                 AppUser = user,
@@ -32,23 +32,20 @@ namespace API.Data
             };
             // "add" to appointment table - tracking this 
             _context.Appointments.Add(appointment);
+            user.Appointments.Add(appointment);
+            _context.Users.Update(user);
             // save the appointment into appointment table
             await _context.SaveChangesAsync();
                  
-            ///TODO change!!!!!
-            CustomerDto customer = new CustomerDto{
-                 Id = user.Id,
-                 UserName = user.UserName,
-                 PhoneNumber = user.PhoneNumber
-             };
-
-             ///TODO change!!!!!
-            return new AppointmentDto{
+           
+            return new AppointmentOutputDto{
              CreatedDate = appointment.CreatedDate,
              AppointmentDate = appointment.AppointmentDate,
-             AppUser = customer,
-             AppUserId = user.Id
+             UserName = user.UserName,
+             PhoneNumber = user.PhoneNumber
             };
+
+
 
         }
 

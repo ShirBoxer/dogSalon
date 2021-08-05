@@ -48,4 +48,12 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(undefined);
   }
+
+  getCurrentUserName():string | undefined{
+    var user = localStorage.getItem('user');
+    if(user != null){
+      return JSON.parse(user).username;
+    }
+    return undefined;
+  }
 }

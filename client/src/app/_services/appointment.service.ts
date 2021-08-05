@@ -4,6 +4,7 @@ import { AccountService } from './account.service';
 import { Appointment } from '../_models/appointment';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AppointmentOutput } from '../_models/AppointmentOutput';
 
 
 @Injectable({
@@ -17,8 +18,8 @@ export class AppointmentService {
     this.accountService = new AccountService(http);
    }
 
-   createAppointment(model: any){
-    return this.http.post<Appointment>(this.baseUrl + 'appointment/create-appointment', model).pipe(
+   createAppointment(appointmentOutput: AppointmentOutput){
+    return this.http.post<Appointment>(this.baseUrl + 'appointment/create', appointmentOutput).pipe(
       map((appointment: Appointment) => {
         if (appointment) {
           localStorage.setItem('appointment', JSON.stringify(appointment));

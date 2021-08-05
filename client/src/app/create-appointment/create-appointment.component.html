@@ -23,15 +23,21 @@
       <h5 class="">Choose Time</h5>
       <div class="col">
         <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Available Hours</button>
+          <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>{{selectedHour}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour">{{hour}}</button>
+            <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour"(click)="getHour(hour)">{{hour}}</button>
           </div>
         </div>
       </div>
   </div>
-</form>
+  <button class="btn btn-success mr-2" *ngIf="freeHours && freeHours.length > 0" (click)="createAppointment()" type="submit">Submit</button>
 
+
+<hr>
+
+
+
+</form>
     
 
   <!-- <pre>Model: {{ model | json }}</pre>

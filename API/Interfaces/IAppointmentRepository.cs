@@ -7,10 +7,14 @@ namespace API.Interfaces
 {
     public interface IAppointmentRepository
     {
-        Task<AppointmentDto> CreateAsync(AppointmentDto appointmentDto);
+        Task<AppointmentOutputDto> CreateAsync(AppointmentInputDto appointmentDto);
+
         void Update(Appointment appointment);
+
         Task<bool> SaveAllAsync();
+
         Task<IEnumerable<Appointment>> GetAppointmentsAsync();
+        
         Task<Appointment> GetAppointmentByIdAsync(int id);
 
         // by date and by user 

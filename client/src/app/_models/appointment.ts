@@ -1,7 +1,7 @@
-import { User } from "./user";
 
 export interface Appointment {
-    CreatedDate: Date,
+    CreatedDate: Date;
     AppointmentDate: Date;
-    AppUser: User;
+    UserName: string;
+    PhoneNumber: string;
 }

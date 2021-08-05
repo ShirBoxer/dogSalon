@@ -15,11 +15,11 @@ export class CreateAppointmentComponent implements OnInit {
   model ?: NgbDateStruct;
   accountModel:any = {};
   hoursList ?: string[];
-  selectedHour?: string;
+  selectedHour: string ="00:00";
 
 
   freeHours ?: string; 
-  constructor(private appointmentService: AppointmentService,private toastr: ToastrService) { 
+  constructor(private appointmentService: AppointmentService,private accountService : AccountService ,private toastr: ToastrService) { 
     this.hoursList= ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00' ];
 
   }
@@ -33,9 +33,31 @@ export class CreateAppointmentComponent implements OnInit {
   
   }
 
+  parseModel(): string{
+    if(this.model != null)
+    return this.model.year + '-' + this.model.month + '-' + this.model.day;
+
+    return "";
+  }
+
   createAppointment()
   { 
-    this.appointmentService.createAppointment(this.accountModel).subscribe(response =>{},
+    let userName = this.accountService.getCurrentUserName();
+    let strDate = this.parseModel();
+    if(strDate == "" || userName == undefined) return;
+    //todo toast
+
+    let date = new Date(strDate);
+    let time = this.selectedHour.split(':');
+    date.setHours(+time[0]);
+    date.setMinutes(+time[1]);
+
+    let appointmentOutput = {
+      AppointmentDate: date,
+      AppUserName: userName,
+    }
+    console.log(appointmentOutput);
+    this.appointmentService.createAppointment(appointmentOutput).subscribe(response =>{},
       error =>{
       console.log(error);
       this.toastr.error(error.error);
@@ -43,8 +65,10 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
   getHour(hour : any){
-    console.log(typeof hour);
+    this.selectedHour = hour;
   }
+
+
 
   
 

@@ -16,3 +16,7 @@ button.calendar, button.calendar:active {
     margin-bottom: 400px;
 
 }
+
+.btn.btn-success.mr-2{
+    margin-top: 30px;
+}
