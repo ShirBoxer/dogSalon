@@ -25,12 +25,10 @@ namespace API.Controllers
         {
             if (await UserExists(registerDto.Username)) return BadRequest("User name is taken");
 
-            using var hmac = new HMACSHA512();
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
+              
                 PhoneNum = registerDto.PhoneNum
 
             };
@@ -53,13 +51,6 @@ namespace API.Controllers
 
             if (user == null) return Unauthorized("Invalid username");
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
              return new UserDto{
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
