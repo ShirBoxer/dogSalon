@@ -28,11 +28,12 @@ namespace API.Controllers
             //TODO - if here and if user is null line-26
             //if (await AppointmentExists(appointmentDto.AppointmentDate)) return BadRequest("Sorry the time you choose is not available, Please try again");
             AppUser user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == appointmentDto.AppUserName);
+            //DateTime d = new DateTime(appointmentDto.AppointmentDate)
             Appointment appointment = new Appointment
             {
                 AppUser = user,
                 AppUserId = user.Id,
-                AppointmentDate = appointmentDto.AppointmentDate,
+                AppointmentDate = parseString(appointmentDto.AppointmentDate)
             };
             // "add" to appointment table - tracking this 
             _context.Appointments.Add(appointment);
@@ -56,10 +57,25 @@ namespace API.Controllers
         {
             return await _context.Appointments.FindAsync(id);
         }
-
-        public async Task<IEnumerable<Appointment>> GetAppointmentsAsync()
+        [HttpGet("get-all")]
+        public async Task<IEnumerable<AppointmentOutputDto>> GetAppointmentsAsync()
         {
-            return await _context.Appointments.ToArrayAsync();
+            Appointment[] appointmentsArr = await _context.Appointments.ToArrayAsync();
+            List<AppointmentOutputDto> outputArr = new List<AppointmentOutputDto>();
+            // Console.WriteLine(appointmentsArr[1].AppUser.PhoneNum);
+            // Console.WriteLine(outputArr.Length);
+            for(int i=0; i< appointmentsArr.Length; i++){
+                AppUser user = await _context.Users.FindAsync(appointmentsArr[i].AppUserId);
+                AppointmentOutputDto app = new AppointmentOutputDto{
+                    CreatedDate = appointmentsArr[i].CreatedDate,
+                    AppointmentDate = appointmentsArr[i].AppointmentDate,
+                    UserName = user.UserName,
+                    PhoneNum = user.PhoneNum
+                 };
+                outputArr.Add(app);
+            }
+          
+            return outputArr;
         }
 
         public async Task<bool> SaveAllAsync()
@@ -77,6 +93,13 @@ namespace API.Controllers
             return await _context.Appointments
             .AnyAsync(app => System.DateTime.Equals(app.AppointmentDate, appDate));
         }
+
+
+
+         public  DateTime parseString(string date){
+            string[] d = date.Split("-");
+            return new DateTime(int.Parse(d[0]),int.Parse(d[1]),int.Parse(d[2]),int.Parse(d[3]),int.Parse(d[4]), 0);
+         }
     }
     
 
