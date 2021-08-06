@@ -1,5 +1,5 @@
 
 export interface AppointmentOutput{
-    AppointmentDate: Date;
+    AppointmentDate: string;
     AppUserName: string;
 }

@@ -39,7 +39,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     SharedModule,
     NgbModule,
-    
 
   ],
   providers: [],

@@ -1,7 +1,7 @@
 
 export interface Appointment {
-    CreatedDate: Date;
-    AppointmentDate: Date;
-    UserName: string;
-    PhoneNum: string;
+    createdDate: Date;
+    appointmentDate: Date;
+    userName: string;
+    phoneNum: string;
 }

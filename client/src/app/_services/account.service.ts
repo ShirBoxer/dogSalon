@@ -56,4 +56,8 @@ export class AccountService {
     }
     return undefined;
   }
+
+  goToMainPage(){
+    
+  }
 }
