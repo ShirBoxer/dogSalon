@@ -46,7 +46,7 @@ namespace API.Controllers
              CreatedDate = appointment.CreatedDate,
              AppointmentDate = appointment.AppointmentDate,
              UserName = user.UserName,
-             PhoneNumber = user.PhoneNumber
+             PhoneNum = user.PhoneNum
             };
         }
 

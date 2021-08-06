@@ -31,7 +31,7 @@ namespace API.Controllers
                 UserName = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                PhoneNumber = registerDto.PhoneNumber
+                PhoneNum = registerDto.PhoneNum
 
             };
             // "add" to user table - tracking this 

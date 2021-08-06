@@ -9,9 +9,10 @@ namespace API.Entities
 
         public byte[] PasswordHash { get; set; }
 
-        public string PhoneNumber { get; set;}
-
         public byte[] PasswordSalt { get; set; }
+
+        public string PhoneNum { get; set;}
+
 
         public ICollection<Appointment> Appointments { get; set; }
 
