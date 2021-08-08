@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AccountService } from './account.service';
 import { Appointment, } from '../_models/appointment';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AppointmentOutput } from '../_models/AppointmentOutput';
 import { Observable } from 'rxjs';
+import { AppointmentOutput } from '../_models/appointmentOutput';
 
 
 @Injectable({

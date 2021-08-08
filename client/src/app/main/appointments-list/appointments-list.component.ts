@@ -16,19 +16,10 @@ export class AppointmentsListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.appointmentService.getAllAppointments().subscribe(appointmentsList => {
-      // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-      // console.log(appointmentsList[0]);
-      // console.log(typeof appointmentsList);
-      // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-      // console.log(appointmentsList[0]);
-      // console.log(typeof appointmentsList[0]);
-      // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-      // console.log(typeof this.appointments);
-
+    this.appointmentService.getAllAppointments()
+      .subscribe(appointmentsList => {
       if(appointmentsList){
         this.appointments = appointmentsList
-        console.log(this.appointments[0]);
       }
     });
   } 

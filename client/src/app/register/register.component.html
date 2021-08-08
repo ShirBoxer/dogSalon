@@ -44,7 +44,9 @@
         <div *ngIf="registerForm.get('Password')?.hasError('minlength')" 
         class="invalid-feedback">The password must be at least 4 characters</div>
         <div *ngIf="registerForm.get('Password')?.hasError('maxlength')" 
-        class="invalid-feedback">The password must be at most 8 characters</div> 
+        class="invalid-feedback">The password must be at most 8 characters</div>
+        <div *ngIf="registerForm.get('Password')?.hasError('pattern')" 
+        class="invalid-feedback">The password must contain at least:<br/> -one uppercase letter<br/>  -one lowercase letter <br/>  -one digit</div>  
     </div>
 
     <div class="form-group">

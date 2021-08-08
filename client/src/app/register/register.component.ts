@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder,FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   validationErrors: string[] = [];
 
   constructor(private accountService: AccountService,
-     private toastr: ToastrService, private fb: FormBuilder) { }
+     private toastr: ToastrService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.intitializeForm();
@@ -26,13 +27,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       UserName: new FormControl('', Validators.required),
       Password: new FormControl('', [Validators.required, 
-        Validators.minLength(4), Validators.maxLength(8)]),
+        Validators.minLength(4), Validators.maxLength(8),
+        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$")]),
       confirmPassword:new FormControl ('', [Validators.required, this.matchValues('Password')]),
       PhoneNum:new FormControl ('', [Validators.required,Validators.pattern("[0]{1}[5]{1}[0-9]{8}")]),
       FirstName:new FormControl ('', Validators.required)
 
     });
-    //TODO DELETE?
     this.registerForm.controls.Password.valueChanges.subscribe(()=> {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();
     });
@@ -47,8 +48,7 @@ export class RegisterComponent implements OnInit {
 
   register(){
     this.accountService.register(this.registerForm?.value).subscribe(response => {
-      //TODO change the page to cleann with ask to log in
-      this.cancel();
+      this.router.navigateByUrl('/main');
     }, error =>{
       this.validationErrors = error;
       //TODO delete?
