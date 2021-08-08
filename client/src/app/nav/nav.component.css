@@ -1,26 +1,68 @@
 
+.navbar{
+    height:80px;
+}
 
-.form-control me-2 {
-    margin-left:300px;
+/* Header */
+.navbar-brand{
+    font-size: 30px;
+    font-stretch: wider;
+    font-weight: lighter;
+}
+
+/* User */
+.dropdown-toggle.text-light{
+    font-size: 18px;
+    font-stretch: wider;
+    font-weight: lighter;
+    color: rgb(52, 125, 189);
 }
 
 
-.btn btn-outline-success{
-    margin-left: 100px;
+/* Login contol */
+.form-control {
+    margin:10px;
+}
+.btn.btn-success{
+    margin-left: 20px;
     margin-top:100px;
+    background-color: rgb(39, 224, 178);
+    font-size: 18px;
+    font-weight: lighter;
 }
-
+.btn.btn-success:hover{
+    background-color: rgb(98, 250, 212);
+}
 .loginForm {
     margin-left: 100px;
 }
 
+.form-control me-2{
+    margin-left: 200px;
+}
+
 /* //// */
 
-.dropdown{
-    margin-left: 650px;
-}
+/* .dropdown{
+    margin-left: 500px;
+} */
 
-.dropdown-toggle, .dropdown-item{
+.dropdown-toggle.dropdown-item{
     cursor: pointer;
 }
+.nav-item{
+    margin: 20px;
+    font-size: 18px;
+    font-stretch: wider;
+    font-weight: lighter;
+    display: inline-block;
+    border-radius: 12px;
+    padding: 9px 15px;
 
+    text-align: center;
+}
+
+.nav-item:hover{
+    background-color: rgb(136, 92, 156);
+
+}
