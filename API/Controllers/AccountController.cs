@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,13 +27,14 @@ namespace API.Controllers
         //////////////   REGISTER   /////////////////////////
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
-        {
+        { 
             if (await UserExists(registerDto.Username)) return BadRequest("User name is taken");
-            //TODO Mapper!!
+            
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
-                PhoneNum = registerDto.PhoneNum
+                PhoneNum = registerDto.PhoneNum,
+                FirstName = registerDto.FirstName
 
             };
 

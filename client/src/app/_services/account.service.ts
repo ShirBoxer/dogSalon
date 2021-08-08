@@ -23,9 +23,6 @@ export class AccountService {
         const user = response;
         if(user){
           // populate our user inside local storage in the browser
-          // localStorage.setItem('user', JSON.stringify(user));
-          // this.currentUserSource.next(user);
-          //delete before
           this.setCurrentUser(user);
 
         }
@@ -39,15 +36,14 @@ export class AccountService {
         if (user) {
           this.setCurrentUser(user);
 
-          //TODO  delete
-          // localStorage.setItem('user', JSON.stringify(user));
-          // this.currentUserSource.next(user);
+          
         }
       })
     )
   }
 
   setCurrentUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
   logout(){

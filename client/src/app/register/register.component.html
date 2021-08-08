@@ -3,30 +3,30 @@
     <hr>
     <div class="form-group">
         <input
-            [class.is-invalid]='registerForm.get("username")?.touched && registerForm.get("username")?.errors'
+            [class.is-invalid]='registerForm.get("UserName")?.touched && registerForm.get("UserName")?.errors'
             type="text"
             class="form-control"
-            formControlName="username"
+            formControlName="UserName"
             placeholder="User Name">
         <div class="invalid-feedback">Please enter a username</div>     
     </div>
 
     <div class="form-group">
         <input
-            [class.is-invalid]='registerForm.get("firstName")?.touched && registerForm.get("firstName")?.errors'
+            [class.is-invalid]='registerForm.get("FirstName")?.touched && registerForm.get("FirstName")?.errors'
             type="text"
             class="form-control"
-            formControlName="firstName"
+            formControlName="FirstName"
             placeholder="First Name">
         <div class="invalid-feedback">Please enter your first name</div>     
     </div>
 
     <div class="form-group">
         <input
-            [class.is-invalid]='registerForm.get("phonenum")?.touched && registerForm.get("phonenum")?.errors'
+            [class.is-invalid]='registerForm.get("PhoneNum")?.touched && registerForm.get("PhoneNum")?.errors'
             type="text"
             class="form-control"
-            formControlName="phonenum"
+            formControlName="PhoneNum"
             placeholder="Phone Number (example 0544689922)">
         <div class="invalid-feedback">Please enter your phone number</div>     
     </div>
@@ -34,16 +34,16 @@
 
     <div class="form-group">
         <input
-            [class.is-invalid]='registerForm.get("password")?.touched && registerForm.get("password")?.errors'
+            [class.is-invalid]='registerForm.get("Password")?.touched && registerForm.get("Password")?.errors'
             type="password"
             class="form-control"
-            formControlName="password"
+            formControlName="Password"
             placeholder="Password">
-        <div *ngIf="registerForm.get('password')?.hasError('required')" 
+        <div *ngIf="registerForm.get('Password')?.hasError('required')" 
         class="invalid-feedback">Please enter a password</div>
-        <div *ngIf="registerForm.get('password')?.hasError('minlength')" 
+        <div *ngIf="registerForm.get('Password')?.hasError('minlength')" 
         class="invalid-feedback">The password must be at least 4 characters</div>
-        <div *ngIf="registerForm.get('password')?.hasError('maxlength')" 
+        <div *ngIf="registerForm.get('Password')?.hasError('maxlength')" 
         class="invalid-feedback">The password must be at most 8 characters</div> 
     </div>
 

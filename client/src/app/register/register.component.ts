@@ -24,16 +24,16 @@ export class RegisterComponent implements OnInit {
 
   intitializeForm() {
     this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, 
+      UserName: new FormControl('', Validators.required),
+      Password: new FormControl('', [Validators.required, 
         Validators.minLength(4), Validators.maxLength(8)]),
-      confirmPassword:new FormControl ('', [Validators.required, this.matchValues('password')]),
-      phonenum:new FormControl ('', [Validators.required,Validators.pattern("[0]{1}[5]{1}[0-9]{8}")]),
-      firstName:new FormControl ('', Validators.required)
+      confirmPassword:new FormControl ('', [Validators.required, this.matchValues('Password')]),
+      PhoneNum:new FormControl ('', [Validators.required,Validators.pattern("[0]{1}[5]{1}[0-9]{8}")]),
+      FirstName:new FormControl ('', Validators.required)
 
     });
     //TODO DELETE?
-    this.registerForm.controls.password.valueChanges.subscribe(()=> {
+    this.registerForm.controls.Password.valueChanges.subscribe(()=> {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();
     });
   }
