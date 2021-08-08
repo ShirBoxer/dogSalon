@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { AppointmentsListComponent } from './main/appointments-list/appointments
 import { SharedModule } from './_modules/shared.module';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
 
 
 
@@ -29,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MainComponent,
     MainCarouselComponent,
     AppointmentsListComponent,
-    CreateAppointmentComponent
+    CreateAppointmentComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     NgbModule,
 
