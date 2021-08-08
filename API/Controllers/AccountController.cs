@@ -22,6 +22,7 @@ namespace API.Controllers
             _userManager = userManager;
             _tokenService = tokenService;
         }
+
         //////////////   REGISTER   /////////////////////////
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -31,7 +32,6 @@ namespace API.Controllers
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
-
                 PhoneNum = registerDto.PhoneNum
 
             };
@@ -44,6 +44,7 @@ namespace API.Controllers
                 Token = _tokenService.CreateToken(user)
             };
         }
+
         //////////////   LOGIN   /////////////////////////
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
@@ -54,7 +55,7 @@ namespace API.Controllers
             if (user == null) return Unauthorized("Invalid username");
 
             var result = await _signInManager
-            .CheckPasswordSignInAsync(user,loginDto.Password,false);
+                .CheckPasswordSignInAsync(user,loginDto.Password,false);
 
             if(!result.Succeeded) return Unauthorized();
 

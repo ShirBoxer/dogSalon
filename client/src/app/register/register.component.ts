@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -11,6 +12,9 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
 
   model:any = {};
+  // registerForm?: FormGroup;
+  // maxDate?: Date;
+  // validationErrors: string[] = [];
 
   constructor(private accountService: AccountService,
      private toastr: ToastrService) { }
@@ -20,6 +24,7 @@ export class RegisterComponent implements OnInit {
 
   register(){
     this.accountService.register(this.model).subscribe(response => {
+      //TODO change the page to cleann with ask to log in
       this.cancel();
     }, error =>{
       console.log(error);

@@ -28,7 +28,6 @@ namespace API.Controllers
             //TODO - if here and if user is null line-26
             //if (await AppointmentExists(appointmentDto.AppointmentDate)) return BadRequest("Sorry the time you choose is not available, Please try again");
             AppUser user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == appointmentDto.AppUserName);
-            //DateTime d = new DateTime(appointmentDto.AppointmentDate)
             Appointment appointment = new Appointment
             {
                 AppUser = user,
@@ -90,8 +89,8 @@ namespace API.Controllers
         }
          private async Task<bool> AppointmentExists(DateTime appDate)
         {
-            return await _context.Appointments
-            .AnyAsync(app => System.DateTime.Equals(app.AppointmentDate, appDate));
+            return await _context.Appointments.AnyAsync(app => System
+                .DateTime.Equals(app.AppointmentDate, appDate));
         }
 
 
