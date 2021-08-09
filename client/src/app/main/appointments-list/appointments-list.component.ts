@@ -54,16 +54,10 @@ export class AppointmentsListComponent implements OnInit {
 
    filterByDate(d : string){
     this.selectedByDate = true;
-    if(!this.selectedByName){
     this.selectedAppointments = this.appointments.filter(app => {
       return app.appointmentDate.toString().split('T')[0] == d;
       });
-    }
-    else {
-      this.selectedAppointments = this.selectedAppointments.filter(app => {
-        return app.appointmentDate.toString().split('T')[0] == d;
-        });
-    }
+   
    }
   
    onKey(event: any){
@@ -72,19 +66,13 @@ export class AppointmentsListComponent implements OnInit {
 
    filterByName(){
     this.selectedByName = true;
-    if(!this.selectedByDate){
     this.selectedAppointments = this.appointments.filter(app => {
       return app.userName == this.filterName;
       });
-    }
-    else{
-      this.selectedAppointments = this.selectedAppointments.filter(app => {
-        return app.userName == this.filterName;
-        });
     }  
-   }
+   
 
-   noFilter(){
+   disableFilters(){
      this.selectedByName = false;
      this.selectedByDate = false;
 

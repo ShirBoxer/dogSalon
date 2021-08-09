@@ -11,11 +11,15 @@
   </div>
 
 
-  <div class="btn-group mr-3">
+  <div class="input-name">
     <h5>Choose name</h5>
     <input class="name-input" (keyup)="onKey($event)">
     <button type="button" class="btn btn-secondary" (click)="filterByName()">filter</button>
   </div>
+
+  <button type="button" class="btn btn-light" (click)="disableFilters()">Disable filters</button>
+
+
 </div>
 <!-- <button class="btn btn-success mr-2" *ngIf="_dates" (click)="createAppointment()" type="submit">Submit</button> -->
 

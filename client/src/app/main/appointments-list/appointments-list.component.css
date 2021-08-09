@@ -6,7 +6,25 @@
 .dropdown{
     padding-bottom: 100px;
 }
-.btn-group.mr-3{
+.input-name{
     display: inline-block;
     float: center;
+    margin-left: 200px;
+
+}
+/* .d-inline-block{
+    display: inline-block;
+    float: center;
+
+} */
+
+.btn-group.mr-3{
+    margin-top:65px;
+    display: inline-block;
+    float: center;
+
+}
+
+.btn-light{
+    margin-left: 200px;
 }
