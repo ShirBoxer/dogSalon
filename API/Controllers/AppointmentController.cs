@@ -7,8 +7,9 @@ using System;
 using API.Entities;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-
-
+using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Timers;
 
 namespace API.Controllers
 {
@@ -16,10 +17,18 @@ namespace API.Controllers
     {
 
         private readonly DataContext _context;
-
+        private static System.Timers.Timer atimer;
+        private static String cnnStr;
         public AppointmentController(DataContext context)
         {
             _context = context;
+            cnnStr = _context.Database.GetConnectionString();
+            atimer = new System.Timers.Timer();
+            atimer.Interval= 10000;
+            atimer.AutoReset = true;
+            // atimer.Elapsed += check;
+            atimer.Elapsed += updateByTime;
+            atimer.Start();
         }
 
         [HttpPost("create")]
@@ -58,7 +67,7 @@ namespace API.Controllers
         }
         [HttpGet("get-all")]
         public async Task<IEnumerable<AppointmentOutputDto>> GetAppointmentsAsync()
-        {
+        {   
             Appointment[] appointmentsArr = await _context.Appointments.ToArrayAsync();
             List<AppointmentOutputDto> outputArr = new List<AppointmentOutputDto>();
             // Console.WriteLine(appointmentsArr[1].AppUser.PhoneNum);
@@ -75,6 +84,24 @@ namespace API.Controllers
             }
           
             return outputArr;
+        }
+
+        private static void updateByTime(object source, ElapsedEventArgs args){
+            Console.WriteLine("working");
+
+            try{
+            String spName = @"dbo.[moveAppointments]";
+            SqlConnection connection = new SqlConnection(cnnStr);
+            SqlCommand cmd = new SqlCommand(spName,connection);
+            connection.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            dr.Close();
+            connection.Close();
+            }catch(Exception e) {
+                Console.WriteLine("calling to procedure failed");
+                Console.WriteLine(e);
+            }
         }
 
         public async Task<bool> SaveAllAsync()
@@ -98,6 +125,11 @@ namespace API.Controllers
          public  DateTime parseString(string date){
             string[] d = date.Split("-");
             return new DateTime(int.Parse(d[0]),int.Parse(d[1]),int.Parse(d[2]),int.Parse(d[3]),int.Parse(d[4]), 0);
+         }
+
+
+         private static void check(object source, ElapsedEventArgs args){
+             Console.WriteLine("#*#*#*##############################***************");
          }
     }
     
