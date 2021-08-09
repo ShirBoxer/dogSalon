@@ -24,7 +24,7 @@ namespace API.Controllers
             _context = context;
             cnnStr = _context.Database.GetConnectionString();
             atimer = new System.Timers.Timer();
-            atimer.Interval= 10000;
+            atimer.Interval= 1000*60*60;
             atimer.AutoReset = true;
             // atimer.Elapsed += check;
             atimer.Elapsed += updateByTime;
