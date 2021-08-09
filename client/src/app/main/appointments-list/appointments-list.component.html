@@ -1,4 +1,25 @@
+<div class="container">
 <h1>Appointments</h1>
+  <div class="btn-group mr-3">
+    <h5>Choose date</h5>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>choose date</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem *ngFor="let d of _dates" [value]="d"(click)="filterByDate(d)">{{d | date}}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="btn-group mr-3">
+    <h5>Choose name</h5>
+    <input class="name-input" (keyup)="onKey($event)">
+    <button type="button" class="btn btn-secondary" (click)="filterByName()">filter</button>
+  </div>
+</div>
+<!-- <button class="btn btn-success mr-2" *ngIf="_dates" (click)="createAppointment()" type="submit">Submit</button> -->
+
+
 <table class="table" *ngIf="appointments && appointments.length>0">
     <thead class="thead-dark">
       <tr>
@@ -8,9 +29,17 @@
         <th scope="col">Time</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let appointment of appointments; let i=index">
-        <th scope="row">{{i}}</th>
+    <tbody *ngIf="!selectedByDate && !selectedByName">
+      <tr *ngFor="let appointment of appointments; let i=index" (click)="rowSelected(i)">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{appointment.userName}}</td>
+        <td>{{appointment.appointmentDate | date : 'shortDate'}}</td>
+        <td>{{appointment.appointmentDate | date : 'shortTime'}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="selectedByName || selectedByDate">
+      <tr *ngFor="let appointment of selectedAppointments; let i=index" (click)="rowSelected(i)">
+        <th scope="row">{{i + 1}}</th>
         <td>{{appointment.userName}}</td>
         <td>{{appointment.appointmentDate | date : 'shortDate'}}</td>
         <td>{{appointment.appointmentDate | date : 'shortTime'}}</td>

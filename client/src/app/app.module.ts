@@ -17,6 +17,8 @@ import { SharedModule } from './_modules/shared.module';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { AppointmentDetailsComponent } from './main/appointment-details/appointment-details.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -31,7 +33,8 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
     MainCarouselComponent,
     AppointmentsListComponent,
     CreateAppointmentComponent,
-    TextInputComponent
+    TextInputComponent,
+    AppointmentDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +45,11 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
     ReactiveFormsModule,
     SharedModule,
     NgbModule,
+    ModalModule.forRoot(),
 
   ],
   providers: [],
+  entryComponents: [AppointmentDetailsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

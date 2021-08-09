@@ -1,0 +1,28 @@
+<div class="container" *ngIf="appointment">
+    <h3>Appointment Details</h3>
+    <br>
+
+    <table class="table">
+        <thead class="thead">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Appointment-Date</th>
+            <th scope="col">Created-Date</th>
+          </tr>
+        </thead>
+        
+    <tbody>
+    <tr class="row1">
+        <td>{{appointment.userName}}</td>
+        <td>{{appointment.phoneNum}}</td>
+        <td class="date">{{appointment.appointmentDate| date : "short"}}</td>
+        <td class="date">{{appointment.createdDate | date : "short"}}</td>
+
+    </tr>
+    </tbody>
+    </table>
+<br>
+
+
+</div>
