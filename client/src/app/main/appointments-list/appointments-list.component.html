@@ -5,7 +5,7 @@
     <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>choose date</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem *ngFor="let d of _dates" [value]="d"(click)="filterByDate(d)">{{d | date}}</button>
+        <button ngbDropdownItem *ngFor="let d of _dates" [value]="d"(click)="setDateFilter(d)">{{d | date}}</button>
       </div>
     </div>
   </div>
@@ -13,8 +13,8 @@
 
   <div class="input-name">
     <h5>Choose name</h5>
-    <input class="name-input" (keyup)="onKey($event)">
-    <button type="button" class="btn btn-secondary" (click)="filterByName()">filter</button>
+    <input class="name-input"  [(ngModel)]="filterName" name="filterName">
+    <button type="button" class="btn btn-secondary" (click)="filter()">filter</button>
   </div>
 
   <button type="button" class="btn btn-light" (click)="disableFilters()">Disable filters</button>
@@ -33,7 +33,7 @@
         <th scope="col">Time</th>
       </tr>
     </thead>
-    <tbody *ngIf="!selectedByDate && !selectedByName">
+    <tbody *ngIf="!filteringMode">
       <tr *ngFor="let appointment of appointments; let i=index" (click)="rowSelected(i)">
         <th scope="row">{{i + 1}}</th>
         <td>{{appointment.userName}}</td>
@@ -41,7 +41,8 @@
         <td>{{appointment.appointmentDate | date : 'shortTime'}}</td>
       </tr>
     </tbody>
-    <tbody *ngIf="selectedByName || selectedByDate">
+    <tbody *ngIf="filteringMode">
+      <h3 *ngIf="selectedAppointments.length == 0">No Matches Was Found!</h3>
       <tr *ngFor="let appointment of selectedAppointments; let i=index" (click)="rowSelected(i)">
         <th scope="row">{{i + 1}}</th>
         <td>{{appointment.userName}}</td>

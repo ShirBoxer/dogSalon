@@ -22,19 +22,22 @@ export class AppointmentService {
 
 
   constructor(private http: HttpClient,private toastr: ToastrService, private router : Router) {
-    this.getAllAppointments();
+    this.getAllAppointments();  
   }
 
   getAvailableHours(date : string):string[]{
-    let hours = this.hoursList.slice();
+    let hours = this.hoursList.filter(t => {
+      return Date.parse(date + ' ' + t) > Date.now();
+    });
     this.appointments$.getValue().filter(app => {
-      return app.appointmentDate.toString().split('T')[0] == date;
+      let da = app.appointmentDate.toString().split('T');
+      return da[0] == date;
     })
     .forEach(app =>{
       let i = hours.indexOf(app.appointmentDate.toString().split('T')[1].slice(0,5));
-      console.log(app.appointmentDate.toString().split('T')[1].slice(0,5));
       if(i > -1) hours.splice(i, 1);
     });
+
     return hours;
   }
 

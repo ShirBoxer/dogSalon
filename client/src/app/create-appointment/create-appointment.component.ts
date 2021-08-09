@@ -29,7 +29,6 @@ export class CreateAppointmentComponent implements OnInit {
 
   onChange(): void{
     this.dateSelected = true;
-    console.log("onChange");
     this.hoursList = this.appointmentService.getAvailableHours(this.parseDate());
   
   }

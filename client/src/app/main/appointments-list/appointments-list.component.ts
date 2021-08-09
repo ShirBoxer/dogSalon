@@ -16,23 +16,23 @@ export class AppointmentsListComponent implements OnInit {
   selectedAppointments : Appointment[] = [];
   bsModalRef !: BsModalRef;
   _dates : string[] = [];
-  selectedByName !: boolean;
-  selectedByDate !: boolean;
-  filterName : string = '';
-
+  filterName !: string;
+  filterDate !: string;
+  filteringMode !: boolean;
 
   constructor(private appointmentService : AppointmentService,private modalService: BsModalService)  { }
 
 
   ngOnInit() {
+    this.filteringMode = false;
+    this.filterDate = 'None';
+    this.filterName = 'None';
     this.appointmentService.getAppointmentsObs().subscribe(data => {
       this.appointments = data;
       this.appointments
       .forEach(app => this._dates.push(app.appointmentDate.toString().split('T')[0]));
       this._dates = Array.from(new Set(this._dates));
     });
-    this.selectedByName = false;
-    this.selectedByDate = false;
   } 
 
   ngOnDestroy(){
@@ -52,29 +52,38 @@ export class AppointmentsListComponent implements OnInit {
      console.log('submit');
    }
 
-   filterByDate(d : string){
-    this.selectedByDate = true;
-    this.selectedAppointments = this.appointments.filter(app => {
-      return app.appointmentDate.toString().split('T')[0] == d;
-      });
-   
+   setDateFilter(d : string){
+     this.filterDate = d;
    }
   
-   onKey(event: any){
-     this.filterName = event.target.value;
-   }
+   
+   filter(){
+    if(this.filterName == '') this.filterName = 'None';
+    if(this.filterDate == 'None' && this.filterName == 'None') return;
+    this.filterName = this.filterName.toLowerCase();
 
-   filterByName(){
-    this.selectedByName = true;
-    this.selectedAppointments = this.appointments.filter(app => {
-      return app.userName == this.filterName;
-      });
-    }  
+    if(this.filterDate != 'None' && this.filterName != 'None'){
+      this.selectedAppointments = this.appointments.filter(app => {
+        return (app.appointmentDate.toString().split('T')[0] == this.filterDate)
+         && (app.userName == this.filterName);
+        });
+    }else if(this.filterDate != 'None'){
+      this.selectedAppointments = this.appointments.filter(app => {
+        return (app.appointmentDate.toString().split('T')[0] == this.filterDate);
+        });
+    }else{
+      this.selectedAppointments = this.appointments.filter(app => {
+        return app.userName == this.filterName;
+        });
+    }
+      this.filteringMode = true;
+   }  
    
 
    disableFilters(){
-     this.selectedByName = false;
-     this.selectedByDate = false;
+    this.filterDate = 'None';
+    this.filterName = 'None';
+     this.filteringMode=false;
 
    }
 }

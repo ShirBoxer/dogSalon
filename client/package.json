@@ -23,6 +23,7 @@
     "bootswatch": "^5.0.2",
     "devextreme-angular": "^21.1.5",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^7.0.0",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
