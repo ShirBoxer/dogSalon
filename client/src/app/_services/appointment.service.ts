@@ -7,6 +7,7 @@ import { AppointmentOutput } from '../_models/appointmentOutput';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { newArray } from '@angular/compiler/src/util';
 
 
 @Injectable({
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
 export class AppointmentService {
   baseUrl = environment.apiUrl;
   private appointments$ : BehaviorSubject<Appointment[]> = new BehaviorSubject(Array());
+  hoursList= ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00' ];
+
 
 
 
@@ -22,7 +25,18 @@ export class AppointmentService {
     this.getAllAppointments();
   }
 
-  
+  getAvailableHours(date : string):string[]{
+    let hours = this.hoursList.slice();
+    this.appointments$.getValue().filter(app => {
+      return app.appointmentDate.toString().split('T')[0] == date;
+    })
+    .forEach(app =>{
+      let i = hours.indexOf(app.appointmentDate.toString().split('T')[1].slice(0,5));
+      console.log(app.appointmentDate.toString().split('T')[1].slice(0,5));
+      if(i > -1) hours.splice(i, 1);
+    });
+    return hours;
+  }
 
   createAppointment(appointmentOutput: AppointmentOutput)
     {  this.http.post<Appointment>(this.baseUrl + 'appointment/create', appointmentOutput)

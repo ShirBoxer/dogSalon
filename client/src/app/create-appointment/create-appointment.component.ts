@@ -17,37 +17,41 @@ export class CreateAppointmentComponent implements OnInit {
   accountModel:any = {};
   hoursList ?: string[];
   selectedHour: string ="00:00";
-  successMsg = 'Your appointment was scheduled succssfully';
-  failedMsg = 'Operation was failed, Please try again'
+  dateSelected!: boolean; 
 
-
-  freeHours ?: string; 
   constructor(private appointmentService: AppointmentService,private accountService : AccountService ,private toastr: ToastrService, private router : Router) { 
-    this.hoursList= ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00' ];
 
   }
 
   ngOnInit(): void {
-    
+    this.dateSelected = false;
   }
 
   onChange(): void{
-    this.freeHours = 'aaa';
+    this.dateSelected = true;
+    console.log("onChange");
+    this.hoursList = this.appointmentService.getAvailableHours(this.parseDate());
   
   }
 
-  parseModel(): string{
+  parseDate(): string{
     if(this.model != null){
       let date = this.model.year + "";
       if(this.model.month < 10) date += '-0' + this.model.month;
       else date += '-' + this.model.month;
       if(this.model.day < 10) date += '-0' + this.model.day;
       else date += '-' + this.model.day;
-      let time = this.selectedHour.split(":");
-      date+= '-' + time[0] + '-' + time[1];
       return date;
     }
     return "";
+  }
+  parseTime(): string{
+      let time = this.selectedHour.split(":");
+      return time[0] + '-' + time[1];
+  }
+
+  parseModel(): string{
+    return this.parseDate() + '-' + this.parseTime();
   }
 
   createAppointment()

@@ -19,7 +19,7 @@
 
   <!-- <p *ngIf="freeHours && freeHours.length > 0" >{{freeHours}}</p> -->
   <!-- <hr/> -->
-  <div class="row" *ngIf="freeHours && freeHours.length > 0">
+  <div class="row" *ngIf="dateSelected">
       <h5 class="">Choose Time</h5>
       <div class="col">
         <div ngbDropdown class="d-inline-block">
@@ -30,7 +30,7 @@
         </div>
       </div>
   </div>
-  <button class="btn btn-success mr-2" *ngIf="freeHours && freeHours.length > 0" (click)="createAppointment()" type="submit">Submit</button>
+  <button class="btn btn-success mr-2" *ngIf="dateSelected" (click)="createAppointment()" type="submit">Submit</button>
 
 
 <hr>
