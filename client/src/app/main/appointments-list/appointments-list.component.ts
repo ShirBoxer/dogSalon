@@ -15,14 +15,16 @@ export class AppointmentsListComponent implements OnInit {
   constructor(private appointmentService : AppointmentService)  { }
 
 
-  ngOnInit(): void {
-    this.appointmentService.getAllAppointments()
-      .subscribe(appointmentsList => {
-      if(appointmentsList){
-        this.appointments = appointmentsList
-      }
+  ngOnInit() {
+    this.appointmentService.getAppointmentsObs().subscribe(data => {
+      this.appointments = data;
     });
   } 
+
+  ngOnDestroy(){
+    //TODO
+    // this.appointmentService.getAppointmentsObs().unsubscribe();
+  }
 
 }
 

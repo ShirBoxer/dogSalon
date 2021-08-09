@@ -61,19 +61,7 @@ export class CreateAppointmentComponent implements OnInit {
       AppointmentDate: strDate,
       AppUserName: userName,
     }
-    console.log(appointmentOutput);
-    this.appointmentService.createAppointment(appointmentOutput).subscribe(response =>{
-      if(response){
-      let msg = 'Your appointment was scheduled succssfully';
-      this.toastr.success(this.successMsg);
-      this.router.navigateByUrl('/main');
-      }
-    },
-      error =>{
-      this.toastr.error(this.failedMsg);
-      console.log(error.error);
-      
-    });
+    this.appointmentService.createAppointment(appointmentOutput);
   }
 
   getHour(hour : any){
