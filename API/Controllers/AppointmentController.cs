@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Timers;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
@@ -49,9 +50,10 @@ namespace API.Controllers
             _context.Users.Update(user);
             // save the appointment into appointment table
             await _context.SaveChangesAsync();
-                 
+            Console.WriteLine(appointment.Id);
            
             return new AppointmentOutputDto{
+             Id = appointment.Id,
              CreatedDate = appointment.CreatedDate,
              AppointmentDate = appointment.AppointmentDate,
              UserName = user.UserName,
@@ -75,6 +77,7 @@ namespace API.Controllers
             for(int i=0; i< appointmentsArr.Length; i++){
                 AppUser user = await _context.Users.FindAsync(appointmentsArr[i].AppUserId);
                 AppointmentOutputDto app = new AppointmentOutputDto{
+                    Id = appointmentsArr[i].Id,
                     CreatedDate = appointmentsArr[i].CreatedDate,
                     AppointmentDate = appointmentsArr[i].AppointmentDate,
                     UserName = user.UserName,
@@ -87,7 +90,6 @@ namespace API.Controllers
         }
 
         private static void updateByTime(object source, ElapsedEventArgs args){
-            Console.WriteLine("working");
 
             try{
             String spName = @"dbo.[moveAppointments]";
@@ -128,9 +130,22 @@ namespace API.Controllers
          }
 
 
-         private static void check(object source, ElapsedEventArgs args){
-             Console.WriteLine("#*#*#*##############################***************");
-         }
+        [HttpDelete("delete/{id:int}")]
+        public async Task<ActionResult<Boolean>> DeleteAsync(int id){
+            try{
+                var appointmentToDelete = await this.GetAppointmentByIdAsync(id);
+                if( appointmentToDelete == null) return false;
+                this._context.Appointments.Remove(appointmentToDelete);
+                await this._context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e){
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
+        }
+
     }
     
 

@@ -1,5 +1,7 @@
-<div class="container" *ngIf="appointment">
+<div class="modal-lg" *ngIf="appointment">
     <h3>Appointment Details</h3>
+    <button *ngIf="isOwner" type="button" class="btn btn-danger" (click)="cancelAppointment()">Cancel appointment</button>
+
     <br>
 
     <table class="table">

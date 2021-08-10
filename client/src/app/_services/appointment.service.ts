@@ -7,7 +7,6 @@ import { AppointmentOutput } from '../_models/appointmentOutput';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { newArray } from '@angular/compiler/src/util';
 
 
 @Injectable({
@@ -44,6 +43,7 @@ export class AppointmentService {
   createAppointment(appointmentOutput: AppointmentOutput)
     {  this.http.post<Appointment>(this.baseUrl + 'appointment/create', appointmentOutput)
         .subscribe(appointment => {
+          console.log(appointment.id);
           let l = this.appointments$.getValue();
           l.push(appointment);
           this.appointments$.next(l);
@@ -69,6 +69,18 @@ export class AppointmentService {
       .subscribe(data => {
         this.appointments$.next(data);
       });
+  }
+
+  cancelAppointment(appointment : Appointment): Observable<boolean>{
+    return this.http.delete<boolean>(this.baseUrl + 'appointment/delete/' + appointment.id);
+
+  }
+
+  deleteLocally(appointment : Appointment){
+    let l = this.appointments$.getValue();
+    let index = l.indexOf(appointment);
+    if(index > -1) l.splice(index,1);
+    this.appointments$.next(l);
   }
 
 }

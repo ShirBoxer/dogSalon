@@ -20,10 +20,12 @@ export class AppointmentsListComponent implements OnInit {
   filterDate !: string;
   filteringMode !: boolean;
 
-  constructor(private appointmentService : AppointmentService,private modalService: BsModalService)  { }
+  constructor(private appointmentService : AppointmentService,
+      private modalService: BsModalService)  { }
 
 
   ngOnInit() {
+    
     this.filteringMode = false;
     this.filterDate = 'None';
     this.filterName = 'None';
@@ -41,8 +43,11 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   rowSelected(index : number){
-    this.bsModalRef =this.modalService.show(AppointmentDetailsComponent, {class: "modal-lg"});
-    this.bsModalRef.content.appointment = this.appointments[index];
+    const initialState = {appointment : this.appointments[index]};
+    let ref =this.bsModalRef =this.modalService
+      .show(AppointmentDetailsComponent, {initialState});
+
+    this.bsModalRef.content.ref = ref;
   }
 
   close() { 
