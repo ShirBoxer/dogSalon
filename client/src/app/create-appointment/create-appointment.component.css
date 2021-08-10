@@ -1,3 +1,25 @@
+body{
+    padding: 1%;
+    background-color:rgb(246, 239, 228);
+    width: 80%;
+    height: 70%;
+    margin-top: 5%;
+    margin-left: 10%;
+
+}
+form{
+    align-items:center;
+}
+h2{
+    margin-top: 10px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px rgb(146, 116, 175);
+    font-weight: bold;
+    font-family:cursive;
+    color:black;
+}
+
+
 button.calendar, button.calendar:active {
     width: 2.75rem;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=)!important;
@@ -5,18 +27,21 @@ button.calendar, button.calendar:active {
     background-size: 23px;
     background-position: 50%;
 }
-
-.row {
-    margin-left: 200px
-
+.cd{
+    margin-top:10px;
+    margin-left:25px;
+    width:150px;
 }
-
-.form-inline{
-    margin-left: 240px;
-    margin-bottom: 400px;
-
+.ct{
+    margin-top:10px;
+    margin-left:90px;
+    width:150px;
 }
-
-.btn.btn-success.mr-2{
-    margin-top: 30px;
+.choosetime{
+    margin-left:0px;
+    
+}
+.btn-success{
+    margin-left:45%;
+    margin-top:40px;
 }

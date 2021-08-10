@@ -1,10 +1,10 @@
   
-  <h2 class="text-center text-primary">Create An Appiontment</h2>
+<body>
+  <h2 class="text-center">Create An Appiontment</h2>
   <hr>
   <form class="form-inline">
-      <div>
-      <h5 class="">Choose date</h5>
       <div class="form-group">
+        <h5 class="cd">Choose date</h5>
           <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd"
                       name="dp" [(ngModel)]="model" (ngModelChange)="onChange()" ngbDatepicker #d="ngbDatepicker">
@@ -15,31 +15,16 @@
               </div>
           </div>        
       </div>
-  </div>
-
-  <!-- <p *ngIf="freeHours && freeHours.length > 0" >{{freeHours}}</p> -->
-  <!-- <hr/> -->
-  <div class="row" *ngIf="dateSelected">
-      <h5 class="">Choose Time</h5>
-      <div class="col">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>{{selectedHour}}</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour"(click)="getHour(hour)">{{hour}}</button>
-          </div>
-        </div>
-      </div>
-  </div>
-  <button class="btn btn-success mr-2" *ngIf="dateSelected" (click)="createAppointment()" type="submit">Submit</button>
-
-
 <hr>
-
-
+<h5 class="ct" *ngIf="dateSelected">Choose Time</h5>
+<div ngbDropdown *ngIf="dateSelected" class="d-inline-block">
+  <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>{{selectedHour}}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour"(click)="getHour(hour)">{{hour}}</button>
+  </div>
+</div>
+<button class="btn btn-success mr-2" *ngIf="dateSelected" (click)="createAppointment()" type="submit">Submit</button>
 
 </form>
-    
 
-  <!-- <pre>Model: {{ model | json }}</pre>
-  -->
-
+</body>

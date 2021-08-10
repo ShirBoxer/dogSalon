@@ -63,14 +63,14 @@ export class AppointmentsListComponent implements OnInit {
   
    
    filter(){
+
     if(this.filterName == '') this.filterName = 'None';
     if(this.filterDate == 'None' && this.filterName == 'None') return;
-    this.filterName = this.filterName.toLowerCase();
 
     if(this.filterDate != 'None' && this.filterName != 'None'){
       this.selectedAppointments = this.appointments.filter(app => {
         return (app.appointmentDate.toString().split('T')[0] == this.filterDate)
-         && (app.userName == this.filterName);
+         && (app.userName == this.filterName.toLowerCase());
         });
     }else if(this.filterDate != 'None'){
       this.selectedAppointments = this.appointments.filter(app => {
@@ -78,7 +78,7 @@ export class AppointmentsListComponent implements OnInit {
         });
     }else{
       this.selectedAppointments = this.appointments.filter(app => {
-        return app.userName == this.filterName;
+        return app.userName == this.filterName.toLowerCase();
         });
     }
       this.filteringMode = true;
