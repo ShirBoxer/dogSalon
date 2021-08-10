@@ -20,10 +20,10 @@ h5{
 
 
 }
-
-.dropdown{
-    padding-bottom: 100px;
+.search-container{
+    height:140px;
 }
+
 .input-name{
     display: inline-block;
     float: center;
@@ -38,9 +38,9 @@ h5{
 } */
 
 .btn-group.mr-3{
-    margin-top:65px;
     display: inline-block;
     float: center;
+    margin-bottom: 30px;
     
 
 }
@@ -75,4 +75,8 @@ h3{
 
 tr{
     background-color: beige;
+}
+
+.input-name{
+    margin-top:10px;
 }
