@@ -40,10 +40,10 @@ namespace API
             // TODO 
             services.AddCors();
             services.AddIdentityServices(_config);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,22 +54,23 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+                // app.UseSwagger();
+                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
                 //IdentityModelEventSource.ShowPII = true; 
             }
-
+            // transofrming http requests to https
             app.UseHttpsRedirection();
-
+            // using dotnet routing middleware
             app.UseRouting();
             //middleware for working with other origin(the client), x = policy
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
             .WithOrigins("https://localhost:4200"));
 
+            // using dotnet authentication service
             app.UseAuthentication();
-            
+            // allow access to dotnet resource 
             app.UseAuthorization();
-
+            // mapping resources endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

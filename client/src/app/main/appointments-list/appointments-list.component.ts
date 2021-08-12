@@ -25,7 +25,6 @@ export class AppointmentsListComponent implements OnInit {
 
 
   ngOnInit() {
-    
     this.filteringMode = false;
     this.filterDate = 'None';
     this.filterName = 'None';

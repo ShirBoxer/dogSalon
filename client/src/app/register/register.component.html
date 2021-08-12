@@ -1,5 +1,5 @@
-<form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">Sign up</h2>
+<form [formGroup]='registerForm'  class="container"(ngSubmit)="register()" autocomplete="off">
+    <h2 class="text-center">Sign up</h2>
     <hr>
     <div class="form-group">
         <input
@@ -67,66 +67,6 @@
         <button [disabled]='registerForm && !registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
         <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
     </div>
-    <!-- <app-text-input [formControl]='registerForm.controls["username"]' 
-        [label]='"Username"'></app-text-input>
-
-    <app-text-input [formControl]='registerForm.controls["firstName"]' 
-        [label]='"First Name"'></app-text-input>
-
-    <app-text-input [formControl]='registerForm.controls["phonenum"]' 
-        [label]='"Phone number"'></app-text-input>
-
-    <app-text-input [formControl]='registerForm.controls["password"]' 
-        [label]='"Password"' [type]='"password"'>
-    </app-text-input>
-    <app-text-input [formControl]='registerForm.controls["confirmPassword"]' 
-        [label]='"Confirm Password"' [type]='"password"'></app-text-input>
-    
-    <div class="row" *ngIf="validationErrors.length > 0">
-        <ul class="text-danger">
-            <li *ngFor="let error of validationErrors">
-                {{error}}
-            </li>
-        </ul>
-    </div>
-
-    <div class="form-group text-center">
-        <button [disabled]='registerForm && !registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
-        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
-    </div>
-     -->
 </form>
 
 
-
-
-
-
-
-
-
-
-
-
-<!-- <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">Sign up</h2>
-    <hr>
-    <div class="form-group">
-        <input type="text" class="form-control" name="username"
-         [(ngModel)]="model.username" placeholder="Username">
-    </div>
-
-    <div class="form-group">
-        <input type="password"  class="form-control" name="password"
-         [(ngModel)]="model.password" placeholder="password">
-    </div>
-    <div class="form-group">
-        <input type="text" id="phone" class="form-control" name="phone"
-         [(ngModel)]="model.PhoneNum" placeholder="phone number">
-    </div>
-    <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit">Register</button>
-        <button class="btn btn-info mr-2"(click)="cancel()" type="button">Cancel</button>
-
-    </div>
-</form> -->

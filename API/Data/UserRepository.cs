@@ -33,9 +33,6 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public void Update(AppUser user)
-        {
-            _context.Entry(user).State = EntityState.Modified;
-        }
+     
     }
 }

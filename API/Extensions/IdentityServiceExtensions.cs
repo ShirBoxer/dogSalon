@@ -13,7 +13,7 @@ namespace API.Extensions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services,
             IConfiguration config)
-        {   
+        {   //declaring and configuring identity entity  
             services.AddIdentityCore<AppUser>(opt => {
                 opt.Password.RequireNonAlphanumeric = false;
             

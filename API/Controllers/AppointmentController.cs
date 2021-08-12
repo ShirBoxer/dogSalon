@@ -23,21 +23,19 @@ namespace API.Controllers
         public AppointmentController(DataContext context)
         {
             _context = context;
-            cnnStr = _context.Database.GetConnectionString();
-            atimer = new System.Timers.Timer();
-            atimer.Interval= 1000*60*60;
-            atimer.AutoReset = true;
-            // atimer.Elapsed += check;
-            atimer.Elapsed += updateByTime;
-            atimer.Start();
+            // config and run sql procedure  
+            sqlProcedureConfigAndRun();
+            
         }
+
 
         [HttpPost("create")]
         public async Task<ActionResult<AppointmentOutputDto>> CreateAsync(AppointmentInputDto appointmentDto)
         {   
-            //TODO - if here and if user is null line-26
-            //if (await AppointmentExists(appointmentDto.AppointmentDate)) return BadRequest("Sorry the time you choose is not available, Please try again");
+            if (await AppointmentExists(parseString(appointmentDto.AppointmentDate))) return BadRequest("Sorry the time you choose is not available, Please try again");
             AppUser user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == appointmentDto.AppUserName);
+            if(user == null) return StatusCode(StatusCodes.Status500InternalServerError, "appointment data was damaged");
+
             Appointment appointment = new Appointment
             {
                 AppUser = user,
@@ -50,8 +48,7 @@ namespace API.Controllers
             _context.Users.Update(user);
             // save the appointment into appointment table
             await _context.SaveChangesAsync();
-            Console.WriteLine(appointment.Id);
-           
+
             return new AppointmentOutputDto{
              Id = appointment.Id,
              CreatedDate = appointment.CreatedDate,
@@ -62,18 +59,18 @@ namespace API.Controllers
         }
 
 
-
+        [HttpGet("{id}")]
         public async Task<Appointment> GetAppointmentByIdAsync(int id)
         {
             return await _context.Appointments.FindAsync(id);
         }
+        
         [HttpGet("get-all")]
         public async Task<IEnumerable<AppointmentOutputDto>> GetAppointmentsAsync()
         {   
             Appointment[] appointmentsArr = await _context.Appointments.ToArrayAsync();
             List<AppointmentOutputDto> outputArr = new List<AppointmentOutputDto>();
-            // Console.WriteLine(appointmentsArr[1].AppUser.PhoneNum);
-            // Console.WriteLine(outputArr.Length);
+            
             for(int i=0; i< appointmentsArr.Length; i++){
                 AppUser user = await _context.Users.FindAsync(appointmentsArr[i].AppUserId);
                 AppointmentOutputDto app = new AppointmentOutputDto{
@@ -88,46 +85,6 @@ namespace API.Controllers
           
             return outputArr;
         }
-
-        private static void updateByTime(object source, ElapsedEventArgs args){
-
-            try{
-            String spName = @"dbo.[moveAppointments]";
-            SqlConnection connection = new SqlConnection(cnnStr);
-            SqlCommand cmd = new SqlCommand(spName,connection);
-            connection.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataReader dr = cmd.ExecuteReader();
-            dr.Close();
-            connection.Close();
-            }catch(Exception e) {
-                Console.WriteLine("calling to procedure failed");
-                Console.WriteLine(e);
-            }
-        }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public void Update(Appointment appointment)
-        {
-            _context.Entry(appointment).State = EntityState.Modified;
-
-        }
-         private async Task<bool> AppointmentExists(DateTime appDate)
-        {
-            return await _context.Appointments.AnyAsync(app => System
-                .DateTime.Equals(app.AppointmentDate, appDate));
-        }
-
-
-
-         public  DateTime parseString(string date){
-            string[] d = date.Split("-");
-            return new DateTime(int.Parse(d[0]),int.Parse(d[1]),int.Parse(d[2]),int.Parse(d[3]),int.Parse(d[4]), 0);
-         }
 
 
         [HttpDelete("delete/{id:int}")]
@@ -145,6 +102,47 @@ namespace API.Controllers
                     "Error deleting data");
             }
         }
+
+         private void sqlProcedureConfigAndRun(){
+            cnnStr = _context.Database.GetConnectionString();
+            atimer = new System.Timers.Timer();
+            atimer.Interval= 1000*60*60;
+            atimer.AutoReset = true;
+            atimer.Elapsed += updateByTime;
+            atimer.Start();
+        } 
+        private static void updateByTime(object source, ElapsedEventArgs args){
+
+            try{
+            String spName = @"dbo.[moveAppointments]";
+            SqlConnection connection = new SqlConnection(cnnStr);
+            SqlCommand cmd = new SqlCommand(spName,connection);
+            connection.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            dr.Close();
+            connection.Close();
+            }catch(Exception e) {
+                Console.WriteLine("calling to procedure failed");
+                Console.WriteLine(e);
+            }
+        }
+
+         private async Task<bool> AppointmentExists(DateTime appDate)
+        {
+            return await _context.Appointments.AnyAsync(app => System
+                .DateTime.Equals(app.AppointmentDate, appDate));
+        }
+
+
+
+         public  DateTime parseString(string date){
+            string[] d = date.Split("-");
+            return new DateTime(int.Parse(d[0]),int.Parse(d[1]),int.Parse(d[2]),int.Parse(d[3]),int.Parse(d[4]), 0);
+         }
+
+
+        
 
     }
     

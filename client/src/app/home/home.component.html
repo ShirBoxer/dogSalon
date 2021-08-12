@@ -1,14 +1,14 @@
-<div class="container" style="margin-top: 200px;">
+<div class="container">
 
     <div class ="sub-div" *ngIf="!registerMode">
         <h1>Welcome to our salon</h1>
         <p class="lead">come on in to make an appointment for your best friend!</p>
-        <p>all you need to do is sign up!</p>
+        <p class="row-text">all you need to do is sign up!</p>
         <div class="text-center">
             <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
         </div>
     </div>
-    <div *ngIf="registerMode" class="container">
+    <div *ngIf="registerMode" >
         <div class="row">
             <div class="col-4">
                 <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>

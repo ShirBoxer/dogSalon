@@ -1,0 +1,21 @@
+.container{
+    text-align: center;
+    margin-left:100%;
+    /* padding-bottom: 50px; */
+    margin-bottom: 100px;
+
+}
+h2{
+    text-shadow: 2px 2px rgb(146, 116, 175);
+    font-weight: bold;
+    color:black;
+    font-size: 40px;
+}
+hr{
+    background-color: rgb(124, 55, 156);
+}
+
+.btn-default{
+    background-color:rgb(132, 93, 148);
+    color:rgb(255, 255, 255);
+}

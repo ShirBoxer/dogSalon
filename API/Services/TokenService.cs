@@ -22,11 +22,11 @@ namespace API.Services
         {   // adding our claims
             var claims = new List<Claim>
             {   new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
             };
             // cearting some credentials
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
-            // describing how a token going to look like
+            // describing how a token going to look like (config json)
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),

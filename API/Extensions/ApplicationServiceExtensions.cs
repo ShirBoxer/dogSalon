@@ -19,6 +19,7 @@ namespace API.Extensions
             // add sql server to services
             services.AddDbContext<DataContext>(options => 
             {
+                //sql server connection configuration
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 

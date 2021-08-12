@@ -22,7 +22,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if(user){
-          // populate our user inside local storage in the browser
+          // populate our user inside local storage in the browser and set as current user
           this.setCurrentUser(user);
 
         }

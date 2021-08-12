@@ -11,12 +11,14 @@ namespace API
 {
     public class Program
     {
+        //dotnet entry point
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
+            // using default configuration with Kestrel (web app container for multiple platforms) 
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
