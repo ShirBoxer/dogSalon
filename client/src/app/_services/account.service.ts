@@ -10,7 +10,6 @@ import { User } from '../_models/user';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  //
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -46,10 +45,6 @@ export class AccountService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
-  logout(){
-    localStorage.removeItem('user');
-    this.currentUserSource.next(undefined);
-  }
 
   getCurrentUserName():string | undefined{
     var user = localStorage.getItem('user');
@@ -57,6 +52,11 @@ export class AccountService {
       return JSON.parse(user).username;
     }
     return undefined;
+  }
+
+  logout(){
+    localStorage.removeItem('user');
+    this.currentUserSource.next(undefined);
   }
 
   

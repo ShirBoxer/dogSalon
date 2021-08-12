@@ -16,10 +16,9 @@ export class AppointmentDetailsComponent implements OnInit {
   isOwner! : boolean;
   ref : BsModalRef | undefined;
 
-
   constructor(private accountService : AccountService,
      private appointmentService : AppointmentService,
-      private toastr:ToastrService, private router : Router) { }
+      private toastr:ToastrService, private router : Router) {}
 
   ngOnInit(): void {
     this.isOwner = (this.accountService.getCurrentUserName() == this.appointment.userName);
@@ -27,7 +26,6 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   cancelAppointment(){
-    //TODO confirmation modal(popup)
     console.log(this.appointment)
     this.appointmentService.cancelAppointment(this.appointment)
     .subscribe(success => {
@@ -35,7 +33,6 @@ export class AppointmentDetailsComponent implements OnInit {
         this.toastr.success("Appointment cancellation succeed");
         this.ref?.hide();
         this.appointmentService.deleteLocally(this.appointment);
-        //location.reload();
       }
       else{
         this.toastr.error("Cancellation failed, please try again")

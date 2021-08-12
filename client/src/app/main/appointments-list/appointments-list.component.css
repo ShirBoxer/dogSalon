@@ -1,24 +1,18 @@
 .container{
     text-align:center;
-    /* background-color:rgb(188, 145, 201); */
     padding-bottom: 5%;
 }
 
 h1{
-    /* border-style:solid; */
     text-decoration:underline;
     text-transform: uppercase;
     text-shadow: 2px 2px rgb(146, 116, 175);
     font-weight: bold;
     font-family:cursive;
-
 }
-
 
 h5{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-
 }
 .search-container{
     height:140px;
@@ -31,21 +25,11 @@ h5{
 
 }
 
-/* .d-inline-block{
-    display: inline-block;
-    float: center;
-
-} */
-
 .btn-group.mr-3{
     display: inline-block;
     float: center;
     margin-bottom: 30px;
-    
-
 }
-
-
 
 h3{
     text-align:center;
@@ -65,8 +49,6 @@ h3{
     color:rgb(255, 255, 255);
     background-color:rgb(146, 91, 168);
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-
 }
 
 .search-container{

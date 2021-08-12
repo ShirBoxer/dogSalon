@@ -12,7 +12,7 @@ namespace API.Controllers
     // [ApiController]
     // [Route("api/[controller]")]
     public class UsersController : BaseApiController
-    {   //TODO
+    {   
         private readonly IUserRepository _userRepository;
         public UsersController(IUserRepository userRepository)
         {

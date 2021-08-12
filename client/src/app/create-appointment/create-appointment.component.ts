@@ -19,9 +19,8 @@ export class CreateAppointmentComponent implements OnInit {
   selectedHour: string ="00:00";
   dateSelected!: boolean; 
 
-  constructor(private appointmentService: AppointmentService,private accountService : AccountService ,private toastr: ToastrService, private router : Router) { 
-
-  }
+  constructor(private appointmentService: AppointmentService,private accountService : AccountService ,
+    private toastr: ToastrService, private router : Router) {}
 
   ngOnInit(): void {
     this.dateSelected = false;
@@ -57,9 +56,11 @@ export class CreateAppointmentComponent implements OnInit {
   { 
     let userName = this.accountService.getCurrentUserName();
     let strDate = this.parseModel();
-    if(strDate == "" || userName == undefined) return;
-    //todo toast
-    
+    if(strDate == "" || userName == undefined) 
+      { this.toastr.error("Failed, please try again");
+        return;
+      };
+
     let appointmentOutput = {
       AppointmentDate: strDate,
       AppUserName: userName,

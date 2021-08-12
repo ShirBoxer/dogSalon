@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit {
       this.router.navigateByUrl('/main');
     }, error =>{
       this.validationErrors = error;
-      //TODO delete?
       console.log(error);
       this.toastr.error(error.error);
     })

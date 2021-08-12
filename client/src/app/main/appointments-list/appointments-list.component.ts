@@ -32,14 +32,14 @@ export class AppointmentsListComponent implements OnInit {
       this.appointments = data;
       this.appointments
       .forEach(app => this._dates.push(app.appointmentDate.toString().split('T')[0]));
+
       this._dates = Array.from(new Set(this._dates));
+      this.appointments.sort((appA,appB)=> {
+          if(appA.appointmentDate >= appB.appointmentDate) return 1;
+          return -1;
+      });
     });
   } 
-
-  ngOnDestroy(){
-    //TODO
-    // this.appointmentService.getAppointmentsObs().unsubscribe();
-  }
 
   rowSelected(index : number){
     const initialState = {appointment : this.appointments[index]};
@@ -52,6 +52,7 @@ export class AppointmentsListComponent implements OnInit {
   close() { 
     this.bsModalRef.hide();
    }
+
    submit() {
      console.log('submit');
    }
@@ -60,7 +61,6 @@ export class AppointmentsListComponent implements OnInit {
      this.filterDate = d;
    }
   
-   
    filter(){
 
     if(this.filterName == '') this.filterName = 'None';

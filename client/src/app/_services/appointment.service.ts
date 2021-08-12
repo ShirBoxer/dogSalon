@@ -17,9 +17,6 @@ export class AppointmentService {
   private appointments$ : BehaviorSubject<Appointment[]> = new BehaviorSubject(Array());
   hoursList= ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00' ];
 
-
-
-
   constructor(private http: HttpClient,private toastr: ToastrService, private router : Router) {
     this.getAllAppointments();  
   }
@@ -54,10 +51,8 @@ export class AppointmentService {
           let failedMsg = 'Operation was failed, Please try again';
           this.toastr.error(failedMsg);
           console.log(error.error);
-          
-
         })     
-  }
+    }
 
 
   getAppointmentsObs(): Observable<Array<Appointment>>{

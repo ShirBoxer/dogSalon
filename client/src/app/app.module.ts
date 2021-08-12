@@ -16,7 +16,6 @@ import { AppointmentsListComponent } from './main/appointments-list/appointments
 import { SharedModule } from './_modules/shared.module';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { AppointmentDetailsComponent } from './main/appointment-details/appointment-details.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -33,7 +32,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     MainCarouselComponent,
     AppointmentsListComponent,
     CreateAppointmentComponent,
-    TextInputComponent,
     AppointmentDetailsComponent
   ],
   imports: [

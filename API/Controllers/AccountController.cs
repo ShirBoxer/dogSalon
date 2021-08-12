@@ -27,9 +27,10 @@ namespace API.Controllers
         //////////////   REGISTER   /////////////////////////
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
-        { 
-            if (await UserExists(registerDto.Username)) return BadRequest("User name is taken");
-            
+        { try{
+            if(!inputIntegrity(registerDto))  return BadRequest("Failed");
+
+            if (await UserExist(registerDto.Username)) return BadRequest("User name is taken");
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
@@ -45,12 +46,18 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
+            }catch(Exception e){
+                Console.WriteLine("Exception at register");
+                Console.WriteLine(e);
+                return BadRequest("Failed");
+            }
         }
 
         //////////////   LOGIN   /////////////////////////
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
-        {
+        {   try{
+            // input validation required
             var user = await _userManager.Users
             .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
@@ -66,11 +73,32 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
+            }catch(Exception e){
+                Console.WriteLine("Exception at login");
+                Console.WriteLine(e);
+                return BadRequest("Failed");
+            }
         }
 
-        private async Task<bool> UserExists(string username)
-        {
+        private async Task<bool> UserExist(string username)
+        {   try{
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
+            }catch(Exception e){
+               throw e;
+            }
+        }
+
+        private bool inputIntegrity(RegisterDto registerDto){
+            if(registerDto == null) return false;
+            if(registerDto.Username == null || registerDto.Username == "" ||
+                registerDto.Password == null ||registerDto.PhoneNum == null || registerDto.PhoneNum == "")
+                {
+                    Console.WriteLine("integrity check failed at " + DateTime.Now);
+                    Console.WriteLine(registerDto);
+                    return false;
+                }
+            return true;
+
         }
     }
 }

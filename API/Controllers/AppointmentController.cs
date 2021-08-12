@@ -23,51 +23,65 @@ namespace API.Controllers
         public AppointmentController(DataContext context)
         {
             _context = context;
+            try{
             // config and run sql procedure  
             sqlProcedureConfigAndRun();
+            }catch(Exception e){
+                Console.WriteLine("exception in AppointmentController");
+                Console.WriteLine(e);
+            }
             
         }
 
 
         [HttpPost("create")]
         public async Task<ActionResult<AppointmentOutputDto>> CreateAsync(AppointmentInputDto appointmentDto)
-        {   
-            if (await AppointmentExists(parseString(appointmentDto.AppointmentDate))) return BadRequest("Sorry the time you choose is not available, Please try again");
-            AppUser user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == appointmentDto.AppUserName);
-            if(user == null) return StatusCode(StatusCodes.Status500InternalServerError, "appointment data was damaged");
+        {   try{
+                if (await AppointmentExists(parseString(appointmentDto.AppointmentDate))) return BadRequest("Sorry the time you choose is not available, Please try again");
+                AppUser user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == appointmentDto.AppUserName);
+                if(user == null) return StatusCode(StatusCodes.Status500InternalServerError, "appointment data was damaged");
 
-            Appointment appointment = new Appointment
-            {
-                AppUser = user,
-                AppUserId = user.Id,
-                AppointmentDate = parseString(appointmentDto.AppointmentDate)
-            };
-            // "add" to appointment table - tracking this 
-            _context.Appointments.Add(appointment);
-            user.Appointments.Add(appointment);
-            _context.Users.Update(user);
-            // save the appointment into appointment table
-            await _context.SaveChangesAsync();
+                Appointment appointment = new Appointment
+                {
+                    AppUser = user,
+                    AppUserId = user.Id,
+                    AppointmentDate = parseString(appointmentDto.AppointmentDate)
+                };
+                // "add" to appointment table - tracking this 
+                _context.Appointments.Add(appointment);
+                user.Appointments.Add(appointment);
+                _context.Users.Update(user);
+                // save the appointment into appointment table
+                await _context.SaveChangesAsync();
 
-            return new AppointmentOutputDto{
-             Id = appointment.Id,
-             CreatedDate = appointment.CreatedDate,
-             AppointmentDate = appointment.AppointmentDate,
-             UserName = user.UserName,
-             PhoneNum = user.PhoneNum
-            };
+                return new AppointmentOutputDto{
+                Id = appointment.Id,
+                CreatedDate = appointment.CreatedDate,
+                AppointmentDate = appointment.AppointmentDate,
+                UserName = user.UserName,
+                PhoneNum = user.PhoneNum
+                };
+            }catch(Exception e) {
+                Console.WriteLine("exception in create appointment");
+                Console.WriteLine(e);
+                return BadRequest("internal error"); 
+            }
         }
 
 
         [HttpGet("{id}")]
         public async Task<Appointment> GetAppointmentByIdAsync(int id)
-        {
+        {   try{
             return await _context.Appointments.FindAsync(id);
+        }catch(Exception e){
+            Console.WriteLine(e);
+            return null;
+        }
         }
         
         [HttpGet("get-all")]
         public async Task<IEnumerable<AppointmentOutputDto>> GetAppointmentsAsync()
-        {   
+        {   try{
             Appointment[] appointmentsArr = await _context.Appointments.ToArrayAsync();
             List<AppointmentOutputDto> outputArr = new List<AppointmentOutputDto>();
             
@@ -84,6 +98,11 @@ namespace API.Controllers
             }
           
             return outputArr;
+            }catch(Exception e){
+                Console.WriteLine("exception in create appointment");
+                Console.WriteLine(e);
+                return new List<AppointmentOutputDto>();
+            }
         }
 
 
@@ -104,12 +123,16 @@ namespace API.Controllers
         }
 
          private void sqlProcedureConfigAndRun(){
+            try{
             cnnStr = _context.Database.GetConnectionString();
             atimer = new System.Timers.Timer();
             atimer.Interval= 1000*60*60;
             atimer.AutoReset = true;
             atimer.Elapsed += updateByTime;
             atimer.Start();
+            }catch(Exception e){
+                throw e;
+            }
         } 
         private static void updateByTime(object source, ElapsedEventArgs args){
 
@@ -123,22 +146,28 @@ namespace API.Controllers
             dr.Close();
             connection.Close();
             }catch(Exception e) {
-                Console.WriteLine("calling to procedure failed");
-                Console.WriteLine(e);
+                throw e;
             }
         }
 
          private async Task<bool> AppointmentExists(DateTime appDate)
-        {
+        {   try{
             return await _context.Appointments.AnyAsync(app => System
                 .DateTime.Equals(app.AppointmentDate, appDate));
+        }catch(Exception e){
+            throw e;
+        }
         }
 
 
 
          public  DateTime parseString(string date){
+             try{
             string[] d = date.Split("-");
             return new DateTime(int.Parse(d[0]),int.Parse(d[1]),int.Parse(d[2]),int.Parse(d[3]),int.Parse(d[4]), 0);
+            }catch(Exception e){
+                throw e;
+            }
          }
 
 

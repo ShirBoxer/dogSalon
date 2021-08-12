@@ -15,16 +15,16 @@
               </div>
           </div>        
       </div>
-<hr>
-<h5 class="ct" *ngIf="dateSelected">Choose Time</h5>
-<div ngbDropdown *ngIf="dateSelected" class="d-inline-block">
-  <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>{{selectedHour}}</button>
-  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-    <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour"(click)="getHour(hour)">{{hour}}</button>
+  <hr>
+  <h5 class="ct" *ngIf="dateSelected">Choose Time</h5>
+  <div ngbDropdown *ngIf="dateSelected" class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownBasic1"  ngbDropdownToggle>{{selectedHour}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem *ngFor="let hour of hoursList" [value]="hour"(click)="getHour(hour)">{{hour}}</button>
+    </div>
   </div>
-</div>
-<button class="btn btn-success mr-2" *ngIf="dateSelected" (click)="createAppointment()" type="submit">Submit</button>
+  <button class="btn btn-success mr-2" *ngIf="dateSelected" (click)="createAppointment()" type="submit">Submit</button>
 
-</form>
+  </form>
 
 </body>
